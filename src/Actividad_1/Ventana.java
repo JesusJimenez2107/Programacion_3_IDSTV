@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -33,8 +35,8 @@ public class Ventana extends JFrame{
 		this.setMinimumSize(new Dimension(400,400));	
 		
 		//this.add(this.login());
-		this.add(this.registro());
-		//this.add(this.Usuarios());
+		//this.add(this.registro());
+		this.add(this.Usuarios());
 		this.repaint();
 	}
 	
@@ -285,6 +287,98 @@ public JPanel login() {
 		return panel2;
 	}
 	
-	
+	public JPanel Usuarios() {
+		
+		JPanel panel3 = new JPanel();
+		panel3.setBackground(Color.decode("#FBF5DD"));
+		panel3.setOpaque(true); //se necesita para poder ver el color
+		panel3.setSize(1000,800);
+		panel3.setLocation(0, 0);
+		panel3.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("BIENVENIDO");
+		etq1.setSize(300, 30);
+		etq1.setLocation(350, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel3.add(etq1);
+		
+		String title []= {"Nombre", "Apellido", "Edad", "Ciudad"};
+		
+		String data [][] = {{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"},
+				{"Jesus", "Jimenez", "28", "La Paz"}
+				};
+		
+		JTable tabla = new JTable(data,title);
+		JScrollPane scroll_pane = new JScrollPane(tabla);
+		scroll_pane.setSize(850, 300);
+		scroll_pane.setLocation(60, 200);
+		panel3.add(scroll_pane);
+		
+		JButton  descargar = new JButton ("Descargar");
+		descargar.setSize(120, 40);
+		descargar.setLocation(650, 150);
+		descargar.setOpaque(true);
+		descargar.setBackground(Color.decode("#DDA853"));
+		descargar.setHorizontalAlignment(JButton.CENTER);
+		descargar.setFont(new Font ("Verdana", Font.BOLD, 12));
+		panel3.add(descargar);
+		
+		JButton  añadir = new JButton ("Añadir");
+		añadir.setSize(120, 40);
+		añadir.setLocation(790, 150);
+		añadir.setOpaque(true);
+		añadir.setBackground(Color.decode("#DDA853"));
+		añadir.setHorizontalAlignment(JButton.CENTER);
+		añadir.setFont(new Font ("Verdana", Font.BOLD, 12));
+		panel3.add(añadir);
+		
+		JLabel etq2 = new JLabel("USUARIOS");
+		etq2.setSize(300, 30);
+		etq2.setLocation(60, 90);
+		etq2.setBackground(Color.decode("#16404D"));
+		etq2.setOpaque(true);
+		etq2.setHorizontalAlignment(JLabel.CENTER);
+		etq2.setFont(new Font ("Verdana", Font.BOLD, 20));
+		etq2.setForeground(Color.decode("#FBFBFB"));
+		panel3.add(etq2);
+		
+		JLabel etq3 = new JLabel("30");
+		etq3.setSize(300, 30);
+		etq3.setLocation(60, 120);
+		etq3.setBackground(Color.decode("#16404D"));
+		etq3.setOpaque(true);
+		etq3.setHorizontalAlignment(JLabel.CENTER);
+		etq3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		etq3.setForeground(Color.decode("#FBFBFB"));
+		panel3.add(etq3);
+		
+	return panel3;	
+	}
 	
 }
