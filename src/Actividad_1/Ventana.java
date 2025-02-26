@@ -3,9 +3,16 @@ package Actividad_1;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -34,24 +41,25 @@ public class Ventana extends JFrame{
 		this.setMaximumSize(new Dimension(1000,1000));
 		this.setMinimumSize(new Dimension(400,400));	
 		
-		//this.add(this.login());
+		this.add(this.login());
 		//this.add(this.registro());
-		this.add(this.Usuarios());
+		//this.add(this.Usuarios());
 		this.repaint();
 	}
 	
 public JPanel login() {
-		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+	
 		JPanel mipanel = new JPanel();
 		mipanel.setBackground(Color.decode("#F2EFE7"));
 		mipanel.setOpaque(true); //se necesita para poder ver el color
-		mipanel.setSize(500,500);
+		mipanel.setSize(1000,600);
 		mipanel.setLocation(0, 0);
 		mipanel.setLayout(null);//permite poner los elementos donde quieras
 		
 		JLabel etiqueta1 = new JLabel("Bienvenido");
 		etiqueta1.setSize(200, 30);
-		etiqueta1.setLocation(150, 30);
+		etiqueta1.setLocation(105, 30);
 		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
 		etiqueta1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		mipanel.add(etiqueta1);
@@ -62,12 +70,23 @@ public JPanel login() {
 		etiqueta2.setFont(new Font ("Verdana", Font.BOLD, 16));
 		mipanel.add(etiqueta2);
 		
+		ImageIcon imagen1 = new ImageIcon("loginIcon.png");
+		JLabel iconoLog = new JLabel();
+		iconoLog.setSize(30, 30);
+		iconoLog.setLocation(40, 160);
+		iconoLog.setIcon(new ImageIcon(imagen1.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
+		iconoLog.setOpaque(true);
+		iconoLog.setBackground(Color.decode("#6b9394"));
+		iconoLog.setBorder(border);
+		mipanel.add(iconoLog);
+		
 		JTextField email = new JTextField();
 		email.setSize(300, 30);
-		email.setLocation(38, 160);
+		email.setLocation(73, 160);
 		email.setOpaque(true);
-		email.setBackground(Color.decode("#9ACBD0"));
+		email.setBackground(Color.decode("#A6CDC6"));
 		email.setFont(new Font ("Verdana", Font.BOLD, 16));
+		email.setBorder(border);
 		mipanel.add(email);
 		
 		JLabel etiqueta3 = new JLabel("Contraseña:");
@@ -76,12 +95,23 @@ public JPanel login() {
 		etiqueta3.setFont(new Font ("Verdana", Font.BOLD, 16));
 		mipanel.add(etiqueta3);
 		
+		ImageIcon imagen2 = new ImageIcon("passIcon.png");
+		JLabel iconoPass = new JLabel();
+		iconoPass.setSize(30, 30);
+		iconoPass.setLocation(40, 240);
+		iconoPass.setIcon(new ImageIcon(imagen2.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
+		iconoPass.setOpaque(true);
+		iconoPass.setBackground(Color.decode("#6b9394"));
+		iconoPass.setBorder(border);
+		mipanel.add(iconoPass);
+		
 		JPasswordField  contra = new JPasswordField ();
 		contra.setSize(300, 30);
-		contra.setLocation(38, 240);
+		contra.setLocation(73, 240);
 		contra.setOpaque(true);
-		contra.setBackground(Color.decode("#9ACBD0"));
+		contra.setBackground(Color.decode("#A6CDC6"));
 		contra.setFont(new Font ("Verdana", Font.BOLD, 16));
+		contra.setBorder(border);
 		mipanel.add(contra);
 		
 		JCheckBox recuerdame = new JCheckBox("Recuerdame",false);
@@ -92,18 +122,58 @@ public JPanel login() {
 		
 		JLabel etiqueta4 = new JLabel("¿Olvidó su Contraseña?");
 		etiqueta4.setSize(200, 30);
-		etiqueta4.setLocation(180, 280);
-		etiqueta4.setFont(new Font ("Verdana", Font.BOLD, 12));
+		etiqueta4.setLocation(230, 280);
+		etiqueta4.setFont(new Font ("Verdana", Font.ITALIC, 12));
 		mipanel.add(etiqueta4);
 		
-		JButton  acceder = new JButton ("ACCEDER");
+		JButton acceder = new JButton("ACCEDER") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
 		acceder.setSize(200, 40);
-		acceder.setLocation(80, 350);
-		acceder.setOpaque(true);
-		acceder.setBackground(Color.decode("#2973B2"));
+		acceder.setLocation(105, 350);
+		acceder.setOpaque(false); 
+		acceder.setContentAreaFilled(false);
+		acceder.setBorderPainted(false);
+		acceder.setBackground(Color.decode("#DDA853"));
 		acceder.setHorizontalAlignment(JButton.CENTER);
-		acceder.setFont(new Font ("Verdana", Font.BOLD, 20));
+		acceder.setFont(new Font("Verdana", Font.BOLD, 20));
+		acceder.setForeground(Color.decode("#FBFBFB"));
+		acceder.setBorder(border);
+
+		acceder.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#16404d"));
+		        acceder.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#DDA853"));
+		        acceder.repaint();
+		    }
+		});
+		
 		mipanel.add(acceder);
+		
+		ImageIcon imagen3 = new ImageIcon("fondoLog.png");
+		JLabel fondoLog = new JLabel();
+		fondoLog.setSize(500, 600);
+		fondoLog.setLocation(500, 0);
+		fondoLog.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH)));
+		mipanel.add(fondoLog);
 		
 		return mipanel;
 	}
