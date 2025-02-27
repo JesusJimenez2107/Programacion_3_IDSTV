@@ -34,19 +34,22 @@ public class Ventana extends JFrame{
 
 	public Ventana(){
 		this.setVisible(true);
-		this.setSize(1000,600);
+		//this.setSize(1000,600);  //tamaño login
+		this.setSize(416,654); //tamaño calculadora
 		this.setLocationRelativeTo(null);
 		
-		this.setTitle("Login");
+		//this.setTitle("Login");
+		this.setTitle("Calculadora");
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.setMaximumSize(new Dimension(1000,1000));
 		this.setMinimumSize(new Dimension(400,400));	
 		
-		this.add(this.login());
+		//this.add(this.login());
 		//this.add(this.registro());
 		//this.add(this.Usuarios());
+		this.add(this.calculadora());
 		
 		//barra
 		
@@ -493,6 +496,182 @@ public JPanel login() {
 		panel3.add(etq3);
 		
 	return panel3;	
+	}
+	
+	public JPanel calculadora () {
+		
+		JPanel panel4 = new JPanel();
+		panel4.setBackground(Color.decode("#c6c5b9"));
+		panel4.setOpaque(true); //se necesita para poder ver el color
+		panel4.setSize(500,654);
+		panel4.setLocation(0, 0);
+		panel4.setLayout(null);//permite poner los elementos donde quieras
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#393d3f"), 2);
+		
+		JTextField pantalla = new JTextField();
+		pantalla.setSize(368, 80);
+		pantalla.setLocation(16, 16);
+		pantalla.setOpaque(true);
+		pantalla.setBackground(Color.decode("#fdfdff"));
+		pantalla.setFont(new Font ("Verdana", Font.BOLD, 22));
+		pantalla.setBorder(border);
+		panel4.add(pantalla);
+		
+		JButton bt_1 = new JButton("/");
+		bt_1.setSize(80, 80);
+		bt_1.setLocation(16, 112);
+		bt_1.setOpaque(true);
+		bt_1.setBackground(Color.decode("#62929e"));
+		bt_1.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_1.setBorder(border);
+		panel4.add(bt_1);
+		
+		JButton bt_2 = new JButton("*");
+		bt_2.setSize(80, 80);
+		bt_2.setLocation(112, 112);
+		bt_2.setOpaque(true);
+		bt_2.setBackground(Color.decode("#62929e"));
+		bt_2.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_2.setBorder(border);
+		panel4.add(bt_2);
+		
+		JButton bt_3 = new JButton("-");
+		bt_3.setSize(80, 80);
+		bt_3.setLocation(208, 112);
+		bt_3.setOpaque(true);
+		bt_3.setBackground(Color.decode("#62929e"));
+		bt_3.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_3.setBorder(border);
+		panel4.add(bt_3);
+		
+		JButton bt_4 = new JButton("AC");
+		bt_4.setSize(80, 80);
+		bt_4.setLocation(304, 112);
+		bt_4.setOpaque(true);
+		bt_4.setBackground(Color.decode("#62929e"));
+		bt_4.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_4.setBorder(border);
+		panel4.add(bt_4);
+		
+		JButton bt_5 = new JButton("7");
+		bt_5.setSize(80, 80);
+		bt_5.setLocation(16, 208);
+		bt_5.setOpaque(true);
+		bt_5.setBackground(Color.decode("#62929e"));
+		bt_5.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_5.setBorder(border);
+		panel4.add(bt_5);
+		
+		JButton bt_6 = new JButton("8");
+		bt_6.setSize(80, 80);
+		bt_6.setLocation(112, 208);
+		bt_6.setOpaque(true);
+		bt_6.setBackground(Color.decode("#62929e"));
+		bt_6.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_6.setBorder(border);
+		panel4.add(bt_6);
+		
+		JButton bt_7 = new JButton("9");
+		bt_7.setSize(80, 80);
+		bt_7.setLocation(208, 208);
+		bt_7.setOpaque(true);
+		bt_7.setBackground(Color.decode("#62929e"));
+		bt_7.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_7.setBorder(border);
+		panel4.add(bt_7);
+		
+		JButton bt_8 = new JButton("+");
+		bt_8.setSize(80, 176);
+		bt_8.setLocation(304, 208);
+		bt_8.setOpaque(true);
+		bt_8.setBackground(Color.decode("#62929e"));
+		bt_8.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_8.setBorder(border);
+		panel4.add(bt_8);
+		
+		JButton bt_9 = new JButton("4");
+		bt_9.setSize(80, 80);
+		bt_9.setLocation(16, 304);
+		bt_9.setOpaque(true);
+		bt_9.setBackground(Color.decode("#62929e"));
+		bt_9.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_9.setBorder(border);
+		panel4.add(bt_9);
+		
+		JButton bt_10 = new JButton("5");
+		bt_10.setSize(80, 80);
+		bt_10.setLocation(112, 304);
+		bt_10.setOpaque(true);
+		bt_10.setBackground(Color.decode("#62929e"));
+		bt_10.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_10.setBorder(border);
+		panel4.add(bt_10);
+		
+		JButton bt_11 = new JButton("6");
+		bt_11.setSize(80, 80);
+		bt_11.setLocation(208, 304);
+		bt_11.setOpaque(true);
+		bt_11.setBackground(Color.decode("#62929e"));
+		bt_11.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_11.setBorder(border);
+		panel4.add(bt_11);
+		
+		JButton bt_12 = new JButton("1");
+		bt_12.setSize(80, 80);
+		bt_12.setLocation(16, 400);
+		bt_12.setOpaque(true);
+		bt_12.setBackground(Color.decode("#62929e"));
+		bt_12.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_12.setBorder(border);
+		panel4.add(bt_12);
+		
+		JButton bt_13 = new JButton("2");
+		bt_13.setSize(80, 80);
+		bt_13.setLocation(112, 400);
+		bt_13.setOpaque(true);
+		bt_13.setBackground(Color.decode("#62929e"));
+		bt_13.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_13.setBorder(border);
+		panel4.add(bt_13);
+		
+		JButton bt_14 = new JButton("3");
+		bt_14.setSize(80, 80);
+		bt_14.setLocation(208, 400);
+		bt_14.setOpaque(true);
+		bt_14.setBackground(Color.decode("#62929e"));
+		bt_14.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_14.setBorder(border);
+		panel4.add(bt_14);
+		
+		JButton bt_15 = new JButton("=");
+		bt_15.setSize(80, 176);
+		bt_15.setLocation(304, 400);
+		bt_15.setOpaque(true);
+		bt_15.setBackground(Color.decode("#546a7b"));
+		bt_15.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_15.setBorder(border);
+		panel4.add(bt_15);
+		
+		JButton bt_16 = new JButton("0");
+		bt_16.setSize(176, 80);
+		bt_16.setLocation(16, 496);
+		bt_16.setOpaque(true);
+		bt_16.setBackground(Color.decode("#62929e"));
+		bt_16.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_16.setBorder(border);
+		panel4.add(bt_16);
+		
+		JButton bt_17 = new JButton(".");
+		bt_17.setSize(80, 80);
+		bt_17.setLocation(208, 496);
+		bt_17.setOpaque(true);
+		bt_17.setBackground(Color.decode("#62929e"));
+		bt_17.setFont(new Font ("Verdana", Font.BOLD, 26));
+		bt_17.setBorder(border);
+		panel4.add(bt_17);
+		
+		return panel4;
 	}
 	
 }
