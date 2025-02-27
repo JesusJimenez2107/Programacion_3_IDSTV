@@ -18,6 +18,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -44,7 +47,48 @@ public class Ventana extends JFrame{
 		this.add(this.login());
 		//this.add(this.registro());
 		//this.add(this.Usuarios());
+		
+		//barra
+		
+		JMenuBar barra = new JMenuBar();
+		
+		JMenu file = new JMenu ("Archivo");
+		barra.add(file);
+		
+		JMenuItem op_1 = new JMenuItem("Nuevo");
+		file.add(op_1);
+		
+		JMenuItem op_2 = new JMenuItem("Abrir");
+		file.add(op_2);
+		
+		JMenuItem op_3 = new JMenuItem("Guardar");
+		file.add(op_3);
+		
+		//ImageIcon saveIcon = new ImageIcon("saveIcon.png");
+		//op_3.setIcon(saveIcon);
+		
+		JMenuItem op_4 = new JMenuItem("Guardar como");
+		file.add(op_4);
+		
+		JMenuItem op_5 = new JMenuItem("Salir");
+		file.add(op_5);
+		
+		JMenu edit = new JMenu ("Editar");
+		barra.add(edit);
+		
+		JMenuItem op_6 = new JMenuItem("Cortar");
+		edit.add(op_6);
+		
+		JMenuItem op_7 = new JMenuItem("Copiar");
+		edit.add(op_7);
+		
+		JMenuItem op_8 = new JMenuItem("Pegar");
+		edit.add(op_8);
+		
+		this.setJMenuBar(barra);
 		this.repaint();
+		this.revalidate();
+	
 	}
 	
 public JPanel login() {
