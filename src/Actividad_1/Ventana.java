@@ -47,9 +47,9 @@ public class Ventana extends JFrame{
 		this.setMinimumSize(new Dimension(400,400));	
 		
 		//this.add(this.login());
-		//this.add(this.registro());
+		this.add(this.registro());
 		//this.add(this.Usuarios());
-		this.add(this.calculadora());
+		//this.add(this.calculadora());
 		
 		//barra
 		
@@ -94,7 +94,7 @@ public class Ventana extends JFrame{
 	
 	}
 	
-public JPanel login() {
+	public JPanel login() {
 		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
 	
 		JPanel mipanel = new JPanel();
