@@ -687,7 +687,7 @@ public class Ventana extends JFrame{
 		
 		Graphics2D g2d = (Graphics2D) g.create();
 		
-		g2d.setStroke(new BasicStroke(3));
+		/* g2d.setStroke(new BasicStroke(3));
 		
 		g2d.drawRect(50, 100, 100, 100);
 		
@@ -719,7 +719,75 @@ public class Ventana extends JFrame{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		
+		g2d.setColor(Color.decode("#219ebc")); //cielo
+		g2d.fillRect(0, 55, 800, 700);
+		
+		//tierra/pasto
+		
+		g2d.setColor(Color.decode("#99582a"));
+		g2d.fillRect(0, 750, 800, 50);
+		
+		g2d.setColor(Color.decode("#bb9457"));
+		g2d.fillRect(0, 720, 800, 30);
+		
+		g2d.setColor(Color.decode("#a3b18a"));
+		g2d.fillRect(0, 690, 800, 30);
+		
+		g2d.setColor(Color.decode("#344e41"));
+		g2d.fillRect(0, 670, 800, 20);
+		
+		//cerca
+		g2d.setColor(Color.decode("#6f4518")); //fondo 
+		g2d.fillRect(0, 550, 800, 60);
+		
+		g2d.setColor(Color.decode("#a47148"));
+		g2d.fillRect(0, 490, 40, 180);
+		g2d.fillRect(60, 490, 40, 180);
+		g2d.fillRect(120, 490, 40, 180);
+	
+		g2d.fillRect(640, 490, 40, 180);
+		g2d.fillRect(700, 490, 40, 180);
+		g2d.fillRect(760, 490, 40, 180);
+		
+		g2d.setColor(Color.decode("#7f7f7f")); //banqueta
+		g2d.fillRect(150, 650, 500, 20);
+		
+		g2d.setColor(Color.decode("#ccc5b9")); //casa
+		g2d.fillRect(170, 350, 460, 300);
+		
+		g2d.setColor(Color.decode("#583101")); //puerta
+		g2d.fillRect(200, 400, 120, 250);
+		g2d.setColor(Color.decode("#6f4518")); 
+		g2d.fillRect(205, 405, 110, 245);
+		g2d.setColor(Color.decode("#d8973c")); 
+		g2d.fillOval(290, 530, 10, 10);
+		
+		//ventana
+		g2d.setColor(Color.decode("#772e25")); 
+		g2d.fillRect(450, 400, 130, 130);
+		
+		g2d.setColor(Color.decode("#ccdbdc")); 
+		g2d.fillRect(460, 410, 50, 50);
+		g2d.fillRect(520, 410, 50, 50);
+		g2d.fillRect(460, 470, 50, 50);
+		g2d.fillRect(520, 470, 50, 50);
+		
+		g2d.setColor(Color.decode("#463f3a")); 
+		g2d.fillRect(435, 530, 160, 15);
+		
+		//chimenea
+		g2d.setColor(Color.decode("#595959")); 
+		g2d.fillRect(545, 230, 50, 100);
+		
+		g2d.setColor(Color.decode("#463f3a")); 
+		g2d.fillRect(530, 210, 80, 30);
+		
+		
+		//techo
+		g2d.setColor(Color.decode("#641220")); 
+		g2d.fillPolygon(new int[] {130, 350, 670}, new int[] {350, 160, 350}, 3);
 		
 	}
 	
