@@ -1,5 +1,6 @@
 package Actividad_1;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,7 +10,11 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -34,12 +39,12 @@ public class Ventana extends JFrame{
 
 	public Ventana(){
 		this.setVisible(true);
-		//this.setSize(1000,600);  //tamaño login
-		this.setSize(416,654); //tamaño calculadora
+		this.setSize(1000,600);  //tamaño login
+		//this.setSize(416,654); //tamaño calculadora
 		this.setLocationRelativeTo(null);
 		
 		//this.setTitle("Login");
-		this.setTitle("Calculadora");
+		//this.setTitle("Calculadora");
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -47,9 +52,10 @@ public class Ventana extends JFrame{
 		this.setMinimumSize(new Dimension(400,400));	
 		
 		//this.add(this.login());
-		this.add(this.registro());
+		//this.add(this.registro());
 		//this.add(this.Usuarios());
 		//this.add(this.calculadora());
+		
 		
 		//barra
 		
@@ -672,6 +678,49 @@ public class Ventana extends JFrame{
 		panel4.add(bt_17);
 		
 		return panel4;
+	}
+	
+	@Override
+	public void paint (Graphics g) {
+		
+		super.paint(g);
+		
+		Graphics2D g2d = (Graphics2D) g.create();
+		
+		g2d.setStroke(new BasicStroke(3));
+		
+		g2d.drawRect(50, 100, 100, 100);
+		
+		g2d.setColor(Color.decode("#15616d"));
+		g2d.fillRect(85, 135, 120, 120);
+		
+		g2d.setFont(new Font ("Verdana", Font.BOLD, 30));
+		g2d.drawString("Bienvenido", 300, 200);
+		
+		g2d.setColor(Color.decode("#78290f"));
+		g2d.drawLine(0, 50, 500, 500);
+		
+		g2d.drawLine(60, 500, 500, 55);
+		
+		g2d.fillArc(100, 350, 100, 100, 0, 360);
+		
+		g2d.setColor(Color.decode("#ff7d00"));
+		g2d.drawArc(100, 250, 80, 80, 45, 180);
+		
+		g2d.fillOval(150, 350, 100, 65);
+		
+		g2d.drawPolygon(new int[] {200, 250, 300}, new int[] {100, 80, 200}, 3);
+		
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new File("owl.png"));
+			g2d.drawImage(image, 300, 250, null);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
