@@ -721,7 +721,9 @@ public class Ventana extends JFrame{
 			e.printStackTrace();
 		}*/
 		
-		g2d.setColor(Color.decode("#219ebc")); //cielo
+		//casa
+		
+		/*g2d.setColor(Color.decode("#219ebc")); //cielo
 		g2d.fillRect(0, 55, 800, 700);
 		
 		//tierra/pasto
@@ -787,8 +789,144 @@ public class Ventana extends JFrame{
 		
 		//techo
 		g2d.setColor(Color.decode("#641220")); 
-		g2d.fillPolygon(new int[] {130, 350, 670}, new int[] {350, 160, 350}, 3);
+		g2d.fillPolygon(new int[] {130, 350, 670}, new int[] {350, 160, 350}, 3);*/
 		
+		//fondo
+		 g2d.setColor(new Color(36, 90, 160));
+	     g2d.fillRect(0, 55, 1000, 600);
+	     
+	     //colinas
+	     g2d.setColor(new Color(135, 206, 235));
+	     g2d.fillRect(100, 200, 130, 300);
+	     g2d.fillRect(500, 200, 130, 300);
+	     g2d.fillRect(630, 150, 130, 350);
+	     g2d.fillArc(100, 135, 130, 130, 0, 180);
+	     g2d.fillArc(500, 135, 130, 130, 0, 180);
+	     g2d.fillArc(630, 85, 130, 130, 0, 180);
+	     
+	     g2d.setColor(Color.WHITE);//nube
+	     g2d.fillOval(550, 190, 140, 60);
+	     g2d.fillOval(570, 180, 120, 70);
+	     g2d.fillOval(590, 190, 140, 60);
+	     
+	     g2d.fillOval(180, 280, 120, 50);
+	     g2d.fillOval(200, 260, 100, 60);
+	     g2d.fillOval(220, 280, 120, 50);
+	     
+	     g2d.setColor(new Color(100, 149, 237));
+	     g2d.fillRect(350, 400, 250, 100);
+	     g2d.fillRect(-50, 400, 250, 100);
+	     g2d.fillRect(600, 300, 250, 200);
+	     g2d.fillArc(350, 300, 250, 200, 0, 180);
+	     g2d.fillArc(-50, 300, 250, 200, 0, 180);
+	     g2d.fillArc(600, 200, 250, 200, 0, 180);
+	     
+	     //nubes
+	     g2d.setColor(Color.WHITE);
+	     g2d.fillOval(200, 80, 120, 50);
+	     g2d.fillOval(220, 60, 100, 60);
+	     g2d.fillOval(240, 80, 120, 50);
+	     
+	     g2d.fillOval(700, 70, 140, 60);
+	     g2d.fillOval(730, 60, 120, 70);
+	     g2d.fillOval(760, 70, 140, 60);
+	     
+	     g2d.fillOval(50, 70, 120, 50);
+	     g2d.fillOval(70, 60, 100, 60);
+	     g2d.fillOval(90, 70, 120, 50);
+	     
+	     g2d.fillOval(350, 150, 120, 50);
+	     g2d.fillOval(370, 140, 100, 60);
+	     g2d.fillOval(390, 150, 120, 50);
+	     
+
+	     g2d.fillOval(800, 190, 130, 55);
+	     g2d.fillOval(820, 180, 110, 65);
+	     g2d.fillOval(840, 190, 130, 55);
+	     
+	   //arbusto
+	     g2d.setColor(Color.decode("#8ac926"));	     
+	     g2d.fillOval(200, 460, 120, 50);
+	     g2d.fillOval(220, 440, 100, 60);
+	     g2d.fillOval(240, 460, 120, 50);
+		
+	     g2d.setColor(Color.decode("#bb3e03"));	
+	     g2d.fillOval(250, 480, 5, 10);
+	     g2d.fillOval(280, 470, 5, 10);
+	     g2d.fillOval(320, 475, 5, 10);
+	     
+	     
+	    //suelo
+	     g2d.setColor(new Color(181, 140, 80));
+	     g2d.fillRect(0, 500, 1000, 100);
+	     g2d.setColor(new Color(50, 205, 50)); 
+	     g2d.fillRect(0, 500, 1000, 20);
+	     
+	   
+	     //tuberia
+	     g2d.setColor(new Color(50, 50, 150)); // Azul oscuro
+	     g2d.fillRect(400, 405, 80, 95);
+	     g2d.fillRect(900, 435, 80, 65);
+	     g2d.setColor(new Color(80, 80, 180)); // Azul claro
+	     g2d.fillRect(395, 380, 90, 25);
+	     g2d.fillRect(895, 435, 90, 25);
+	     g2d.setColor(Color.BLACK);
+	     g2d.drawRect(400, 405, 80, 95);
+	     g2d.drawRect(395, 380, 90, 25);
+	     g2d.drawRect(900, 460, 80, 40);
+	     g2d.drawRect(895, 435, 90, 25);
+	     
+	     //bloques
+	     g2d.setColor(Color.LIGHT_GRAY);
+	     g2d.fillRect(850, 460, 40, 40);
+	     g2d.fillRect(850, 420, 40, 40);
+	     g2d.fillRect(850, 380, 40, 40);
+	     g2d.fillRect(850, 340, 40, 40);
+	    
+	     
+	     g2d.setColor(Color.BLACK);
+	     g2d.drawRect(850, 460, 40, 40);
+	     g2d.drawRect(850, 420, 40, 40);
+	     g2d.drawRect(850, 380, 40, 40);
+	     g2d.drawRect(850, 340, 40, 40);
+	     
+	     g2d.setColor(Color.decode("#ffb703"));
+	     g2d.fillRect(890, 340, 40, 40);
+	     g2d.fillRect(930, 340, 40, 40);
+	     g2d.fillRect(970, 340, 40, 40);
+	     g2d.setColor(Color.BLACK);
+	     g2d.drawRect(890, 340, 40, 40);
+	     g2d.drawRect(930, 340, 40, 40);
+	     g2d.drawRect(970, 340, 40, 40);
+	     
+	     g2d.setColor(Color.WHITE);
+	     g2d.setFont(new Font ("Verdana", Font.BOLD, 20));
+	     g2d.drawString("?", 905, 365);
+	     g2d.drawString("?", 945, 365);
+	     g2d.drawString("?", 985, 365);
+	     
+	     //detalles colinas
+	     g2d.setColor(new Color(220, 250, 255)); // Color celeste más claro
+	     g2d.fillOval(130, 160, 20, 40);
+	     g2d.fillOval(180, 200, 15, 30);
+	     g2d.fillOval(150, 250, 20, 40);
+	     
+	     g2d.fillOval(530, 160, 20, 40);
+	     g2d.fillOval(580, 320, 15, 30);
+	     g2d.fillOval(550, 250, 20, 40);
+	  
+	     g2d.fillOval(700, 130, 25, 50);
+	     
+	     g2d.setColor(Color.decode("#90e0ef"));
+	     g2d.fillOval(30, 430, 30, 60);
+	     g2d.fillOval(100, 400, 30, 60);
+	     
+	     g2d.fillOval(360, 430, 25, 60);
+	     g2d.fillOval(520, 380, 30, 60);
+	     
+	     g2d.fillOval(650, 250, 25, 60);
+	     g2d.fillOval(700, 380, 30, 60);
+	     g2d.fillOval(780, 280, 40, 80);
 	}
 	
 }
