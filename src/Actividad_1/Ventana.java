@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -222,21 +223,37 @@ public class Ventana extends JFrame{
 		   
 		});
 		
+		
 		acceder.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				boolean bandera1=false, bandera2=false;
 				if(email.getText().equals("")) {
 					email.setBorder(BorderFactory.createLineBorder(Color.red,3));
 				}else {
 					email.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera1=true;
 				}
 				
 				if(new String(contra.getPassword()).equals("")) {
 					contra.setBorder(BorderFactory.createLineBorder(Color.red,3));
 				}else {
 					contra.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera1=true;
+				}
+				
+				if(bandera1&&bandera2) {
+					if(email.getText().equals("jjimenez_23@uabcs.mx")) {
+						if(new String(contra.getPassword()).equals("contraseña")) {
+							JOptionPane.showMessageDialog(acceder, "Beinvenido de nuevo","hello",JOptionPane.WARNING_MESSAGE);
+						}
+						else{
+							JOptionPane.showMessageDialog(acceder, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(acceder, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+					}
 				}
 				
 			}
