@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -51,7 +53,7 @@ public class Ventana extends JFrame{
 		this.setMaximumSize(new Dimension(1000,1000));
 		this.setMinimumSize(new Dimension(400,400));	
 		
-		//this.add(this.login());
+		this.add(this.login());
 		//this.add(this.registro());
 		//this.add(this.Usuarios());
 		//this.add(this.calculadora());
@@ -217,8 +219,28 @@ public class Ventana extends JFrame{
 		        acceder.setBackground(Color.decode("#DDA853"));
 		        acceder.repaint();
 		    }
+		   
 		});
 		
+		acceder.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(email.getText().equals("")) {
+					email.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					email.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				}
+				
+				if(new String(contra.getPassword()).equals("")) {
+					contra.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					contra.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				}
+				
+			}
+		});
 		mipanel.add(acceder);
 		
 		ImageIcon imagen3 = new ImageIcon("fondoLog.png");
@@ -272,6 +294,7 @@ public class Ventana extends JFrame{
 		nUsuario.setBackground(Color.decode("#A6CDC6"));
 		nUsuario.setFont(new Font ("Verdana", Font.BOLD, 16));
 		nUsuario.setBorder(border);
+		nUsuario.addActionListener(null);
 		panel2.add(nUsuario);
 		
 		JLabel etq4 = new JLabel("Contraseña:");
@@ -280,7 +303,7 @@ public class Ventana extends JFrame{
 		etq4.setFont(new Font ("Verdana", Font.BOLD, 16));
 		panel2.add(etq4);
 		
-		JTextField cUsuario = new JTextField();
+		JTextField cUsuario = new JPasswordField();
 		cUsuario.setSize(300, 30);
 		cUsuario.setLocation(38, 240);
 		cUsuario.setOpaque(true);
@@ -405,6 +428,39 @@ public class Ventana extends JFrame{
 		confirmar.setBackground(Color.decode("#DDA853"));
 		confirmar.setHorizontalAlignment(JButton.CENTER);
 		confirmar.setFont(new Font ("Verdana", Font.BOLD, 26));
+		
+		confirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				if(nUsuario.getText().equals("")) {
+					nUsuario.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					nUsuario.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				}
+				
+				if(cUsuario.getText().equals("")) {
+					cUsuario.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					cUsuario.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				}
+				
+				if(corrUsuario.getText().equals("")) {
+					corrUsuario.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					corrUsuario.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				}
+				
+				if(bio.getText().equals("")) {
+					bio.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					bio.setBorder(BorderFactory.createLineBorder(Color.green,3));
+				}
+				
+			}
+		});
+
 		panel2.add(confirmar);
 		
 		return panel2;
@@ -723,7 +779,7 @@ public class Ventana extends JFrame{
 		
 		//casa
 		
-		/*g2d.setColor(Color.decode("#219ebc")); //cielo
+		/*2d.setColor(Color.decode("#219ebc")); //cielo
 		g2d.fillRect(0, 55, 800, 700);
 		
 		//tierra/pasto
@@ -932,7 +988,7 @@ public class Ventana extends JFrame{
 		
 		//mario2
 		//fondo
-		g2d.setColor(Color.decode("#bde0fe"));
+		/*g2d.setColor(Color.decode("#bde0fe"));
 		g2d.fillRect(0, 55, 1000, 600);
 		
 		//arbusto
@@ -1073,7 +1129,7 @@ public class Ventana extends JFrame{
 		//delineados
 		g2d.setStroke(new BasicStroke(3));
 		g2d.setColor(Color.BLACK);
-		g2d.drawRect(0, 500, 1000, 100);
+		g2d.drawRect(0, 500, 1000, 100);*/
 		
 		
 	}
