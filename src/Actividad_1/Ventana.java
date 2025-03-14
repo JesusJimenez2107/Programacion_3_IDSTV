@@ -97,6 +97,31 @@ public class Ventana extends JFrame{
 		JMenuItem op_8 = new JMenuItem("Pegar");
 		edit.add(op_8);
 		
+		JMenu cuenta = new JMenu ("Cuenta");
+		barra.add(cuenta);
+		
+		JMenuItem op_9 = new JMenuItem("Login");
+		
+		op_9.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("acceso");				
+			}
+		});
+		cuenta.add(op_9);
+		
+		JMenuItem op_10 = new JMenuItem("Registro");
+		
+		op_10.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("register");				
+			}
+		});
+		cuenta.add(op_10);
+		
 		this.setJMenuBar(barra);
 		this.repaint();
 		this.revalidate();
