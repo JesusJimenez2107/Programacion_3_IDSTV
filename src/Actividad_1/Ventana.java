@@ -228,7 +228,9 @@ public class Ventana extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				boolean bandera1=false, bandera2=false;
+				
 				if(email.getText().equals("")) {
 					email.setBorder(BorderFactory.createLineBorder(Color.red,3));
 				}else {
@@ -240,25 +242,76 @@ public class Ventana extends JFrame{
 					contra.setBorder(BorderFactory.createLineBorder(Color.red,3));
 				}else {
 					contra.setBorder(BorderFactory.createLineBorder(Color.green,3));
-					bandera1=true;
-				}
+					bandera2=true;
 				
+				}
 				if(bandera1&&bandera2) {
 					if(email.getText().equals("jjimenez_23@uabcs.mx")) {
 						if(new String(contra.getPassword()).equals("contraseña")) {
-							JOptionPane.showMessageDialog(acceder, "Beinvenido de nuevo","hello",JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Beinvenido de nuevo","hello",JOptionPane.WARNING_MESSAGE);
 						}
 						else{
-							JOptionPane.showMessageDialog(acceder, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
 						}
 					}else {
-						JOptionPane.showMessageDialog(acceder, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
 					}
 				}
 				
 			}
 		});
 		mipanel.add(acceder);
+		
+		JButton regresarRegistro = new JButton("REGISTRARSE") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		regresarRegistro.setSize(200, 40);
+		regresarRegistro.setLocation(105, 400);
+		regresarRegistro.setOpaque(false); 
+		regresarRegistro.setContentAreaFilled(false);
+		regresarRegistro.setBorderPainted(false);
+		regresarRegistro.setBackground(Color.decode("#DDA853"));
+		regresarRegistro.setHorizontalAlignment(JButton.CENTER);
+		regresarRegistro.setFont(new Font("Verdana", Font.BOLD, 20));
+		regresarRegistro.setForeground(Color.decode("#FBFBFB"));
+		regresarRegistro.setBorder(border);
+
+		regresarRegistro.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	regresarRegistro.setBackground(Color.decode("#16404d"));
+		    	regresarRegistro.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	regresarRegistro.setBackground(Color.decode("#DDA853"));
+		    	regresarRegistro.repaint();
+		    }
+		   
+		});
+		
+		regresarRegistro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("register");				
+			}
+		});
+		
+		mipanel.add(regresarRegistro);
 		
 		ImageIcon imagen3 = new ImageIcon("fondoLog.png");
 		JLabel fondoLog = new JLabel();
@@ -438,13 +491,13 @@ public class Ventana extends JFrame{
 		panel2.add(aceptar);
 		panel2.add(rechazar);
 		
-		JButton  confirmar = new JButton ("CREAR CUENTA");
-		confirmar.setSize(300, 40);
-		confirmar.setLocation(100, 730);
+		JButton  confirmar = new JButton ("Crear Cuenta");
+		confirmar.setSize(200, 40);
+		confirmar.setLocation(20, 730);
 		confirmar.setOpaque(true);
 		confirmar.setBackground(Color.decode("#DDA853"));
 		confirmar.setHorizontalAlignment(JButton.CENTER);
-		confirmar.setFont(new Font ("Verdana", Font.BOLD, 26));
+		confirmar.setFont(new Font ("Verdana", Font.BOLD, 20));
 		
 		confirmar.addActionListener(new ActionListener() {
 			
@@ -480,7 +533,38 @@ public class Ventana extends JFrame{
 
 		panel2.add(confirmar);
 		
+		JButton  irLogin = new JButton ("Regresar");
+		irLogin.setSize(200, 40);
+		irLogin.setLocation(250, 730);
+		irLogin.setOpaque(true);
+		irLogin.setBackground(Color.decode("#DDA853"));
+		irLogin.setHorizontalAlignment(JButton.CENTER);
+		irLogin.setFont(new Font ("Verdana", Font.BOLD, 20));
+		irLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("acceso");				
+			}
+		});
+		panel2.add(irLogin);
+		
 		return panel2;
+	}
+	
+	public void router(String route) {
+		this.getContentPane().removeAll();
+		
+		if(route.equals("acceso")) {
+			this.add(this.login());
+		}
+		
+		if(route.equals("register")) {
+			this.add(this.registro());
+		}
+		
+		this.repaint();
+		this.revalidate();
 	}
 	
 	public JPanel Usuarios() {
