@@ -64,63 +64,110 @@ public class Ventana extends JFrame{
 		
 		JMenuBar barra = new JMenuBar();
 		
-		JMenu file = new JMenu ("Archivo");
-		barra.add(file);
+		JMenu Cuenta = new JMenu ("Cuenta");
+		barra.add(Cuenta);
 		
-		JMenuItem op_1 = new JMenuItem("Nuevo");
-		file.add(op_1);
-		
-		JMenuItem op_2 = new JMenuItem("Abrir");
-		file.add(op_2);
-		
-		JMenuItem op_3 = new JMenuItem("Guardar");
-		file.add(op_3);
-		
-		//ImageIcon saveIcon = new ImageIcon("saveIcon.png");
-		//op_3.setIcon(saveIcon);
-		
-		JMenuItem op_4 = new JMenuItem("Guardar como");
-		file.add(op_4);
-		
-		JMenuItem op_5 = new JMenuItem("Salir");
-		file.add(op_5);
-		
-		JMenu edit = new JMenu ("Editar");
-		barra.add(edit);
-		
-		JMenuItem op_6 = new JMenuItem("Cortar");
-		edit.add(op_6);
-		
-		JMenuItem op_7 = new JMenuItem("Copiar");
-		edit.add(op_7);
-		
-		JMenuItem op_8 = new JMenuItem("Pegar");
-		edit.add(op_8);
-		
-		JMenu cuenta = new JMenu ("Cuenta");
-		barra.add(cuenta);
-		
-		JMenuItem op_9 = new JMenuItem("Login");
-		
-		op_9.addActionListener(new ActionListener() {
+		JMenuItem op_1 = new JMenuItem("Login");
+		op_1.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				router("acceso");				
 			}
 		});
-		cuenta.add(op_9);
+		Cuenta.add(op_1);
 		
-		JMenuItem op_10 = new JMenuItem("Registro");
-		
-		op_10.addActionListener(new ActionListener() {
+		JMenuItem op_2 = new JMenuItem("Registro");
+		op_2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				router("register");				
 			}
 		});
-		cuenta.add(op_10);
+		Cuenta.add(op_2);
+		
+		JMenuItem op_3 = new JMenuItem("Recuperación de cuenta");
+		op_3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("recupContra");				
+			}
+		});
+		Cuenta.add(op_3);
+		
+		//ImageIcon saveIcon = new ImageIcon("saveIcon.png");
+		//op_3.setIcon(saveIcon);
+		
+		
+		
+		JMenu Usuarios = new JMenu ("Usuarios");
+		barra.add(Usuarios);
+		
+		JMenuItem op_4 = new JMenuItem("Alta");
+		op_4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("altaU");				
+			}
+		});
+		Usuarios.add(op_4);
+		
+		JMenuItem op_5 = new JMenuItem("Baja");
+		op_5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("bajaU");				
+			}
+		});
+		Usuarios.add(op_5);
+		
+		JMenuItem op_6 = new JMenuItem("Consultar");
+		op_6.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("consultaU");				
+			}
+		});
+		Usuarios.add(op_6);
+		
+		JMenu Ayuda = new JMenu ("Ayuda");
+		barra.add(Ayuda);
+		
+		JMenuItem op_7 = new JMenuItem("¿Cómo crear un usuario?");
+		op_7.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("ayudaCrear");				
+			}
+		});
+		Ayuda.add(op_7);
+		
+		JMenuItem op_8 = new JMenuItem("¿Cómo acceder al sistema?");
+		op_8.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("ayudaAcceder");				
+			}
+		});
+		Ayuda.add(op_8);
+		
+		JMenuItem op_9 = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
+		
+		op_9.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("ayudaOlvideC");				
+			}
+		});
+		Ayuda.add(op_9);
 		
 		this.setJMenuBar(barra);
 		this.repaint();
@@ -588,6 +635,34 @@ public class Ventana extends JFrame{
 			this.add(this.registro());
 		}
 		
+		if(route.equals("recupContra")) {
+			this.add(this.recuperarCuenta());
+		}
+		
+		if(route.equals("altaU")) {
+			this.add(this.altaUsuario());
+		}
+		
+		if(route.equals("bajaU")) {
+			this.add(this.bajaUsuario());
+		}
+		
+		if(route.equals("consultaU")) {
+			this.add(this.Usuarios());
+		}
+		
+		if(route.equals("ayudaCrear")) {
+			this.add(this.ayudaCrear());
+		}
+		
+		if(route.equals("ayudaAcceder")) {
+			this.add(this.ayudaAcceder());
+		}
+		
+		if(route.equals("ayudaOlvideC")) {
+			this.add(this.ayudaOlvideC());
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -860,6 +935,138 @@ public class Ventana extends JFrame{
 		panel4.add(bt_17);
 		
 		return panel4;
+	}
+	
+	public JPanel recuperarCuenta() {
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+		
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(Color.decode("#FBF5DD"));
+		panel5.setOpaque(true); //se necesita para poder ver el color
+		panel5.setSize(500,500);
+		panel5.setLocation(0, 0);
+		panel5.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("RECUPERAR CUENTA");
+		etq1.setSize(500, 30);
+		etq1.setLocation(150, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel5.add(etq1);
+		
+		return panel5;
+		
+	}
+	
+	public JPanel altaUsuario() {
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+		
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(Color.decode("#FBF5DD"));
+		panel5.setOpaque(true); //se necesita para poder ver el color
+		panel5.setSize(500,500);
+		panel5.setLocation(0, 0);
+		panel5.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("Alta de usuario");
+		etq1.setSize(500, 30);
+		etq1.setLocation(150, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel5.add(etq1);
+		
+		return panel5;
+		
+	}
+	
+	public JPanel bajaUsuario() {
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+		
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(Color.decode("#FBF5DD"));
+		panel5.setOpaque(true); //se necesita para poder ver el color
+		panel5.setSize(500,500);
+		panel5.setLocation(0, 0);
+		panel5.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("Baja de usuario");
+		etq1.setSize(500, 30);
+		etq1.setLocation(150, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel5.add(etq1);
+		
+		return panel5;
+		
+	}
+	
+	public JPanel ayudaCrear() {
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+		
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(Color.decode("#FBF5DD"));
+		panel5.setOpaque(true); //se necesita para poder ver el color
+		panel5.setSize(500,500);
+		panel5.setLocation(0, 0);
+		panel5.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("¿Cómo crear un usuario?");
+		etq1.setSize(500, 30);
+		etq1.setLocation(150, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel5.add(etq1);
+		
+		return panel5;
+		
+	}
+	
+	public JPanel ayudaAcceder() {
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+		
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(Color.decode("#FBF5DD"));
+		panel5.setOpaque(true); //se necesita para poder ver el color
+		panel5.setSize(500,500);
+		panel5.setLocation(0, 0);
+		panel5.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("¿Cómo acceder al sistema?");
+		etq1.setSize(500, 30);
+		etq1.setLocation(150, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel5.add(etq1);
+		
+		return panel5;
+		
+	}
+	
+	public JPanel ayudaOlvideC() {
+		
+		Border border = BorderFactory.createLineBorder(Color.decode("#16404D"), 2);
+		
+		JPanel panel5 = new JPanel();
+		panel5.setBackground(Color.decode("#FBF5DD"));
+		panel5.setOpaque(true); //se necesita para poder ver el color
+		panel5.setSize(500,500);
+		panel5.setLocation(0, 0);
+		panel5.setLayout(null);//permite poner los elementos donde quieras
+		
+		JLabel etq1 = new JLabel("¿Qué pasa si olvidé mi contraseña?");
+		etq1.setSize(500, 30);
+		etq1.setLocation(150, 30);
+		etq1.setHorizontalAlignment(JLabel.CENTER);
+		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
+		panel5.add(etq1);
+		
+		return panel5;
+		
 	}
 	
 	@Override
