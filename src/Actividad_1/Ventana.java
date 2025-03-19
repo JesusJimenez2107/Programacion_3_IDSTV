@@ -621,6 +621,19 @@ public class Ventana extends JFrame{
 		});
 		panel2.add(irLogin);
 		
+		ImageIcon imagen3 = new ImageIcon("fondoLog.png");
+		JLabel fondoLog = new JLabel();
+		fondoLog.setSize(500, 600);
+		fondoLog.setLocation(500, 0);
+		fondoLog.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH)));
+		panel2.add(fondoLog);
+		
+		/*JScrollPane scrollPane = new JScrollPane(panel2);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        Ventana.add(scrollPane);
+		Ventana.setVisible(true);*/
+        
 		return panel2;
 	}
 	
@@ -736,6 +749,13 @@ public class Ventana extends JFrame{
 		añadir.setBackground(Color.decode("#DDA853"));
 		añadir.setHorizontalAlignment(JButton.CENTER);
 		añadir.setFont(new Font ("Verdana", Font.BOLD, 12));
+		añadir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("altaU");				
+			}
+		});
 		panel3.add(añadir);
 		
 		JLabel etq2 = new JLabel("USUARIOS");
@@ -949,11 +969,217 @@ public class Ventana extends JFrame{
 		panel5.setLayout(null);//permite poner los elementos donde quieras
 		
 		JLabel etq1 = new JLabel("RECUPERAR CUENTA");
-		etq1.setSize(500, 30);
-		etq1.setLocation(150, 30);
+		etq1.setSize(400, 30);
+		etq1.setLocation(10, 30);
 		etq1.setHorizontalAlignment(JLabel.CENTER);
 		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		panel5.add(etq1);
+		
+		JLabel etq1_1 = new JLabel("¿Olvidaste tu contraseña?");
+		etq1_1.setSize(300, 30);
+		etq1_1.setLocation(60, 80);
+		etq1_1.setHorizontalAlignment(JLabel.CENTER);
+		etq1_1.setFont(new Font ("Verdana", Font.BOLD, 18));
+		panel5.add(etq1_1);
+		
+		JLabel etiqueta2 = new JLabel("Ingrese su correo:");
+		etiqueta2.setSize(200, 30);
+		etiqueta2.setLocation(40, 130);
+		etiqueta2.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta2);
+		
+		JTextField email = new JTextField();
+		email.setSize(350, 30);
+		email.setLocation(40, 160);
+		email.setOpaque(true);
+		email.setBackground(Color.decode("#A6CDC6"));
+		email.setFont(new Font ("Verdana", Font.BOLD, 16));
+		email.setBorder(border);
+		panel5.add(email);
+		
+		JLabel etiqueta3 = new JLabel("Ingresa código de 6 dígitos:");
+		etiqueta3.setSize(300, 30);
+		etiqueta3.setLocation(40, 210);
+		etiqueta3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta3);
+		
+		JPasswordField  contra = new JPasswordField ();
+		contra.setSize(350, 30);
+		contra.setLocation(40, 240);
+		contra.setOpaque(true);
+		contra.setBackground(Color.decode("#A6CDC6"));
+		contra.setFont(new Font ("Verdana", Font.BOLD, 16));
+		contra.setBorder(border);
+		panel5.add(contra);
+		
+		JLabel etiqueta4 = new JLabel("Ingresa nueva contraseña:");
+		etiqueta4.setSize(300, 30);
+		etiqueta4.setLocation(40, 290);
+		etiqueta4.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta4);
+		
+		JPasswordField  nva_Contra = new JPasswordField ();
+		nva_Contra.setSize(350, 30);
+		nva_Contra.setLocation(40, 320);
+		nva_Contra.setOpaque(true);
+		nva_Contra.setBackground(Color.decode("#A6CDC6"));
+		nva_Contra.setFont(new Font ("Verdana", Font.BOLD, 16));
+		nva_Contra.setBorder(border);
+		panel5.add(nva_Contra);
+		
+		JLabel etiqueta5 = new JLabel("Ingresa de nuevo la contraseña:");
+		etiqueta5.setSize(300, 30);
+		etiqueta5.setLocation(40, 370);
+		etiqueta5.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta5);
+		
+		JPasswordField  nva_Contra_1 = new JPasswordField ();
+		nva_Contra_1.setSize(350, 30);
+		nva_Contra_1.setLocation(40, 400);
+		nva_Contra_1.setOpaque(true);
+		nva_Contra_1.setBackground(Color.decode("#A6CDC6"));
+		nva_Contra_1.setFont(new Font ("Verdana", Font.BOLD, 16));
+		nva_Contra_1.setBorder(border);
+		panel5.add(nva_Contra_1);
+		
+		
+		JButton acceder = new JButton("CONFIRMAR") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		acceder.setSize(200, 40);
+		acceder.setLocation(105, 450);
+		acceder.setOpaque(false); 
+		acceder.setContentAreaFilled(false);
+		acceder.setBorderPainted(false);
+		acceder.setBackground(Color.decode("#DDA853"));
+		acceder.setHorizontalAlignment(JButton.CENTER);
+		acceder.setFont(new Font("Verdana", Font.BOLD, 20));
+		acceder.setForeground(Color.decode("#FBFBFB"));
+		acceder.setBorder(border);
+
+		acceder.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#16404d"));
+		        acceder.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#DDA853"));
+		        acceder.repaint();
+		    }
+		   
+		});
+		
+		
+		acceder.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean bandera1=false, bandera2=false;
+				
+				if(email.getText().equals("")) {
+					email.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					email.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera1=true;
+				}
+				
+				if(new String(contra.getPassword()).equals("")) {
+					contra.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					contra.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera2=true;
+				
+				}
+				if(bandera1&&bandera2) {
+					if(email.getText().equals("jjimenez_23@uabcs.mx")) {
+						if(new String(contra.getPassword()).equals("contraseña")) {
+							JOptionPane.showMessageDialog(null, "Beinvenido de nuevo","hello",JOptionPane.WARNING_MESSAGE);
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+					}
+				}
+				
+			}
+		});
+		panel5.add(acceder);
+		
+		JButton regresarRegistro = new JButton("REGRESAR") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		regresarRegistro.setSize(200, 40);
+		regresarRegistro.setLocation(105, 500);
+		regresarRegistro.setOpaque(false); 
+		regresarRegistro.setContentAreaFilled(false);
+		regresarRegistro.setBorderPainted(false);
+		regresarRegistro.setBackground(Color.decode("#DDA853"));
+		regresarRegistro.setHorizontalAlignment(JButton.CENTER);
+		regresarRegistro.setFont(new Font("Verdana", Font.BOLD, 20));
+		regresarRegistro.setForeground(Color.decode("#FBFBFB"));
+		regresarRegistro.setBorder(border);
+
+		regresarRegistro.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	regresarRegistro.setBackground(Color.decode("#16404d"));
+		    	regresarRegistro.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	regresarRegistro.setBackground(Color.decode("#DDA853"));
+		    	regresarRegistro.repaint();
+		    }
+		   
+		});
+		
+		regresarRegistro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("acceso");				
+			}
+		});
+		
+		panel5.add(regresarRegistro);
+		
+		ImageIcon imagen3 = new ImageIcon("fondoLog.png");
+		JLabel fondoLog = new JLabel();
+		fondoLog.setSize(500, 600);
+		fondoLog.setLocation(500, 0);
+		fondoLog.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(500, 600, Image.SCALE_SMOOTH)));
+		panel5.add(fondoLog);
 		
 		return panel5;
 		
@@ -971,11 +1197,173 @@ public class Ventana extends JFrame{
 		panel5.setLayout(null);//permite poner los elementos donde quieras
 		
 		JLabel etq1 = new JLabel("Alta de usuario");
-		etq1.setSize(500, 30);
-		etq1.setLocation(150, 30);
+		etq1.setSize(500, 40);
+		etq1.setLocation(0, 30);
 		etq1.setHorizontalAlignment(JLabel.CENTER);
 		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		panel5.add(etq1);
+		
+		
+		JLabel etiqueta2 = new JLabel("Ingrese su correo:");
+		etiqueta2.setSize(200, 30);
+		etiqueta2.setLocation(40, 130);
+		etiqueta2.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta2);
+		
+		JTextField email = new JTextField();
+		email.setSize(330, 30);
+		email.setLocation(40, 160);
+		email.setOpaque(true);
+		email.setBackground(Color.decode("#A6CDC6"));
+		email.setFont(new Font ("Verdana", Font.BOLD, 16));
+		email.setBorder(border);
+		panel5.add(email);
+		
+		JLabel etiqueta3 = new JLabel("Ingresa contraseña:");
+		etiqueta3.setSize(300, 30);
+		etiqueta3.setLocation(40, 210);
+		etiqueta3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta3);
+		
+		JPasswordField  contra = new JPasswordField ();
+		contra.setSize(330, 30);
+		contra.setLocation(40, 240);
+		contra.setOpaque(true);
+		contra.setBackground(Color.decode("#A6CDC6"));
+		contra.setFont(new Font ("Verdana", Font.BOLD, 16));
+		contra.setBorder(border);
+		panel5.add(contra);
+		
+		JButton acceder = new JButton("CONFIRMAR") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		acceder.setSize(200, 40);
+		acceder.setLocation(105, 300);
+		acceder.setOpaque(false); 
+		acceder.setContentAreaFilled(false);
+		acceder.setBorderPainted(false);
+		acceder.setBackground(Color.decode("#DDA853"));
+		acceder.setHorizontalAlignment(JButton.CENTER);
+		acceder.setFont(new Font("Verdana", Font.BOLD, 20));
+		acceder.setForeground(Color.decode("#FBFBFB"));
+		acceder.setBorder(border);
+
+		acceder.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#16404d"));
+		        acceder.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#DDA853"));
+		        acceder.repaint();
+		    }
+		   
+		});
+		
+		
+		acceder.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean bandera1=false, bandera2=false;
+				
+				if(email.getText().equals("")) {
+					email.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					email.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera1=true;
+				}
+				
+				if(new String(contra.getPassword()).equals("")) {
+					contra.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					contra.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera2=true;
+				
+				}
+				if(bandera1&&bandera2) {
+					if(email.getText().equals("jjimenez_23@uabcs.mx")) {
+						if(new String(contra.getPassword()).equals("contraseña")) {
+							JOptionPane.showMessageDialog(null, "Beinvenido de nuevo","hello",JOptionPane.WARNING_MESSAGE);
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+					}
+				}
+				
+			}
+		});
+		panel5.add(acceder);
+		
+		JButton regresarUsuarios = new JButton("CANCELAR") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		regresarUsuarios.setSize(200, 40);
+		regresarUsuarios.setLocation(105, 400);
+		regresarUsuarios.setOpaque(false); 
+		regresarUsuarios.setContentAreaFilled(false);
+		regresarUsuarios.setBorderPainted(false);
+		regresarUsuarios.setBackground(Color.decode("#DDA853"));
+		regresarUsuarios.setHorizontalAlignment(JButton.CENTER);
+		regresarUsuarios.setFont(new Font("Verdana", Font.BOLD, 20));
+		regresarUsuarios.setForeground(Color.decode("#FBFBFB"));
+		regresarUsuarios.setBorder(border);
+
+		regresarUsuarios.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	regresarUsuarios.setBackground(Color.decode("#16404d"));
+		    	regresarUsuarios.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	regresarUsuarios.setBackground(Color.decode("#DDA853"));
+		    	regresarUsuarios.repaint();
+		    }
+		   
+		});
+		
+		regresarUsuarios.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("consultaU");				
+			}
+		});
+		
+		panel5.add(regresarUsuarios);
 		
 		return panel5;
 		
@@ -993,11 +1381,172 @@ public class Ventana extends JFrame{
 		panel5.setLayout(null);//permite poner los elementos donde quieras
 		
 		JLabel etq1 = new JLabel("Baja de usuario");
-		etq1.setSize(500, 30);
-		etq1.setLocation(150, 30);
+		etq1.setSize(500, 40);
+		etq1.setLocation(0, 30);
 		etq1.setHorizontalAlignment(JLabel.CENTER);
 		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		panel5.add(etq1);
+		
+		JLabel etiqueta2 = new JLabel("Ingrese su correo:");
+		etiqueta2.setSize(200, 30);
+		etiqueta2.setLocation(40, 130);
+		etiqueta2.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta2);
+		
+		JTextField email = new JTextField();
+		email.setSize(330, 30);
+		email.setLocation(40, 160);
+		email.setOpaque(true);
+		email.setBackground(Color.decode("#A6CDC6"));
+		email.setFont(new Font ("Verdana", Font.BOLD, 16));
+		email.setBorder(border);
+		panel5.add(email);
+		
+		JLabel etiqueta3 = new JLabel("Ingresa contraseña:");
+		etiqueta3.setSize(300, 30);
+		etiqueta3.setLocation(40, 210);
+		etiqueta3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etiqueta3);
+		
+		JPasswordField  contra = new JPasswordField ();
+		contra.setSize(330, 30);
+		contra.setLocation(40, 240);
+		contra.setOpaque(true);
+		contra.setBackground(Color.decode("#A6CDC6"));
+		contra.setFont(new Font ("Verdana", Font.BOLD, 16));
+		contra.setBorder(border);
+		panel5.add(contra);
+		
+		JButton acceder = new JButton("CONFIRMAR") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		acceder.setSize(200, 40);
+		acceder.setLocation(105, 300);
+		acceder.setOpaque(false); 
+		acceder.setContentAreaFilled(false);
+		acceder.setBorderPainted(false);
+		acceder.setBackground(Color.decode("#DDA853"));
+		acceder.setHorizontalAlignment(JButton.CENTER);
+		acceder.setFont(new Font("Verdana", Font.BOLD, 20));
+		acceder.setForeground(Color.decode("#FBFBFB"));
+		acceder.setBorder(border);
+
+		acceder.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#16404d"));
+		        acceder.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        acceder.setBackground(Color.decode("#DDA853"));
+		        acceder.repaint();
+		    }
+		   
+		});
+		
+		
+		acceder.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean bandera1=false, bandera2=false;
+				
+				if(email.getText().equals("")) {
+					email.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					email.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera1=true;
+				}
+				
+				if(new String(contra.getPassword()).equals("")) {
+					contra.setBorder(BorderFactory.createLineBorder(Color.red,3));
+				}else {
+					contra.setBorder(BorderFactory.createLineBorder(Color.green,3));
+					bandera2=true;
+				
+				}
+				if(bandera1&&bandera2) {
+					if(email.getText().equals("jjimenez_23@uabcs.mx")) {
+						if(new String(contra.getPassword()).equals("contraseña")) {
+							JOptionPane.showMessageDialog(null, "Beinvenido de nuevo","hello",JOptionPane.WARNING_MESSAGE);
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Contraseña o correo invalido","error",JOptionPane.WARNING_MESSAGE);
+					}
+				}
+				
+			}
+		});
+		panel5.add(acceder);
+		
+		JButton regresarUsuarios = new JButton("CANCELAR") {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		        // Dibuja el botón con bordes redondeados
+		        g2.setColor(getBackground());
+		        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30); // Radio de borde 30px
+
+		        super.paintComponent(g);
+		        g2.dispose();
+		    }
+		};
+
+		regresarUsuarios.setSize(200, 40);
+		regresarUsuarios.setLocation(105, 400);
+		regresarUsuarios.setOpaque(false); 
+		regresarUsuarios.setContentAreaFilled(false);
+		regresarUsuarios.setBorderPainted(false);
+		regresarUsuarios.setBackground(Color.decode("#DDA853"));
+		regresarUsuarios.setHorizontalAlignment(JButton.CENTER);
+		regresarUsuarios.setFont(new Font("Verdana", Font.BOLD, 20));
+		regresarUsuarios.setForeground(Color.decode("#FBFBFB"));
+		regresarUsuarios.setBorder(border);
+
+		regresarUsuarios.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		    	regresarUsuarios.setBackground(Color.decode("#16404d"));
+		    	regresarUsuarios.repaint();
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		    	regresarUsuarios.setBackground(Color.decode("#DDA853"));
+		    	regresarUsuarios.repaint();
+		    }
+		   
+		});
+		
+		regresarUsuarios.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("consultaU");				
+			}
+		});
+		
+		panel5.add(regresarUsuarios);
 		
 		return panel5;
 		
@@ -1021,6 +1570,90 @@ public class Ventana extends JFrame{
 		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		panel5.add(etq1);
 		
+		JLabel etq2 = new JLabel("Pasos a seguir:");
+		etq2.setSize(500, 30);
+		etq2.setLocation(0, 100);
+		etq2.setBackground(Color.decode("#16404D"));
+		etq2.setOpaque(true);
+		etq2.setHorizontalAlignment(JLabel.CENTER);
+		etq2.setFont(new Font ("Verdana", Font.BOLD, 20));
+		etq2.setForeground(Color.decode("#FBFBFB"));
+		panel5.add(etq2);
+		
+		JLabel etq3 = new JLabel("1- Accede a la pantalla de registro.");
+		etq3.setSize(500, 30);
+		etq3.setLocation(40, 140);
+		etq3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq3);
+		
+		JLabel etq4 = new JLabel("2- Ingresa los datos solicitados.");
+		etq4.setSize(500, 30);
+		etq4.setLocation(40, 170);
+		etq4.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq4);
+		
+		JLabel etq5 = new JLabel("3- Presiona boton 'Crear cuenta'.");
+		etq5.setSize(500, 30);
+		etq5.setLocation(40, 200);
+		etq5.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq5);
+		
+		JLabel etq6 = new JLabel("4- Tu cuenta estara creada y lista para acceder.");
+		etq6.setSize(500, 30);
+		etq6.setLocation(40, 230);
+		etq6.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq6);
+		
+		ImageIcon imagen3 = new ImageIcon("ayuda_1.png");
+		JLabel fondoLog = new JLabel();
+		fondoLog.setSize(250,300);
+		fondoLog.setLocation(530, 100);
+		fondoLog.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(250, 300, Image.SCALE_SMOOTH)));
+		panel5.add(fondoLog);
+		
+		ImageIcon imagen4 = new ImageIcon("ayuda_2.png");
+		JLabel ayuda_2 = new JLabel();
+		ayuda_2.setSize(250,300);
+		ayuda_2.setLocation(800, 100);
+		ayuda_2.setIcon(new ImageIcon(imagen4.getImage().getScaledInstance(250, 300, Image.SCALE_SMOOTH)));
+		panel5.add(ayuda_2);
+		
+		JButton  confirmar = new JButton ("Ir a registro");
+		confirmar.setSize(200, 40);
+		confirmar.setLocation(20, 330);
+		confirmar.setOpaque(true);
+		confirmar.setBackground(Color.decode("#DDA853"));
+		confirmar.setHorizontalAlignment(JButton.CENTER);
+		confirmar.setFont(new Font ("Verdana", Font.BOLD, 20));
+		
+		confirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("register");
+				
+			}
+		});
+
+		panel5.add(confirmar);
+		
+		JButton  irLogin = new JButton ("Ir a acceso");
+		irLogin.setSize(200, 40);
+		irLogin.setLocation(250, 330);
+		irLogin.setOpaque(true);
+		irLogin.setBackground(Color.decode("#DDA853"));
+		irLogin.setHorizontalAlignment(JButton.CENTER);
+		irLogin.setFont(new Font ("Verdana", Font.BOLD, 20));
+		irLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("acceso");				
+			}
+		});
+		panel5.add(irLogin);
+		
+		
 		return panel5;
 		
 	}
@@ -1043,6 +1676,83 @@ public class Ventana extends JFrame{
 		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		panel5.add(etq1);
 		
+		JLabel etq2 = new JLabel("Pasos a seguir:");
+		etq2.setSize(500, 30);
+		etq2.setLocation(0, 100);
+		etq2.setBackground(Color.decode("#16404D"));
+		etq2.setOpaque(true);
+		etq2.setHorizontalAlignment(JLabel.CENTER);
+		etq2.setFont(new Font ("Verdana", Font.BOLD, 20));
+		etq2.setForeground(Color.decode("#FBFBFB"));
+		panel5.add(etq2);
+		
+		JLabel etq3 = new JLabel("1- Accede a la pantalla de acceso.");
+		etq3.setSize(500, 30);
+		etq3.setLocation(40, 140);
+		etq3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq3);
+		
+		JLabel etq4 = new JLabel("2- Ingresa los datos solicitados.");
+		etq4.setSize(500, 30);
+		etq4.setLocation(40, 170);
+		etq4.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq4);
+		
+		JLabel etq5 = new JLabel("3- Verifica que tus datos sean correctos.");
+		etq5.setSize(500, 30);
+		etq5.setLocation(40, 200);
+		etq5.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq5);
+		
+		JLabel etq6 = new JLabel("4- Presiona boton 'ACCEDER'.");
+		etq6.setSize(500, 30);
+		etq6.setLocation(40, 230);
+		etq6.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq6);
+		
+		ImageIcon imagen3 = new ImageIcon("ayuda_3.png");
+		JLabel fondoLog = new JLabel();
+		fondoLog.setSize(350,400);
+		fondoLog.setLocation(530, 100);
+		fondoLog.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(350, 400, Image.SCALE_SMOOTH)));
+		panel5.add(fondoLog);
+		
+		
+		JButton  confirmar = new JButton ("Ir a registro");
+		confirmar.setSize(200, 40);
+		confirmar.setLocation(20, 330);
+		confirmar.setOpaque(true);
+		confirmar.setBackground(Color.decode("#DDA853"));
+		confirmar.setHorizontalAlignment(JButton.CENTER);
+		confirmar.setFont(new Font ("Verdana", Font.BOLD, 20));
+		
+		confirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("register");
+				
+			}
+		});
+
+		panel5.add(confirmar);
+		
+		JButton  irLogin = new JButton ("Ir a acceso");
+		irLogin.setSize(200, 40);
+		irLogin.setLocation(250, 330);
+		irLogin.setOpaque(true);
+		irLogin.setBackground(Color.decode("#DDA853"));
+		irLogin.setHorizontalAlignment(JButton.CENTER);
+		irLogin.setFont(new Font ("Verdana", Font.BOLD, 20));
+		irLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("acceso");				
+			}
+		});
+		panel5.add(irLogin);
+		
 		return panel5;
 		
 	}
@@ -1059,11 +1769,113 @@ public class Ventana extends JFrame{
 		panel5.setLayout(null);//permite poner los elementos donde quieras
 		
 		JLabel etq1 = new JLabel("¿Qué pasa si olvidé mi contraseña?");
-		etq1.setSize(500, 30);
-		etq1.setLocation(150, 30);
+		etq1.setSize(800, 40);
+		etq1.setLocation(100, 30);
 		etq1.setHorizontalAlignment(JLabel.CENTER);
 		etq1.setFont(new Font ("Verdana", Font.BOLD, 30));
 		panel5.add(etq1);
+		
+		JLabel etq2 = new JLabel("Pasos a seguir:");
+		etq2.setSize(500, 30);
+		etq2.setLocation(0, 100);
+		etq2.setBackground(Color.decode("#16404D"));
+		etq2.setOpaque(true);
+		etq2.setHorizontalAlignment(JLabel.CENTER);
+		etq2.setFont(new Font ("Verdana", Font.BOLD, 20));
+		etq2.setForeground(Color.decode("#FBFBFB"));
+		panel5.add(etq2);
+		
+		JLabel etq3 = new JLabel("1- Accede a la pantalla recuperación de cuenta.");
+		etq3.setSize(500, 30);
+		etq3.setLocation(40, 140);
+		etq3.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq3);
+		
+		JLabel etq4 = new JLabel("2- Ingresa tu correo y presiona confirmar.");
+		etq4.setSize(500, 30);
+		etq4.setLocation(40, 170);
+		etq4.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq4);
+		
+		JLabel etq5 = new JLabel("3- Ingresa el código que recibiste en tu correo");
+		etq5.setSize(500, 30);
+		etq5.setLocation(40, 200);
+		etq5.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq5);
+		
+		JLabel etq5_1 = new JLabel("    y presiona confirmar.");
+		etq5_1.setSize(500, 30);
+		etq5_1.setLocation(40, 230);
+		etq5_1.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq5_1);
+		
+		JLabel etq6 = new JLabel("4- Ingresa tu nueva contraseña dos veces.");
+		etq6.setSize(500, 30);
+		etq6.setLocation(40, 260);
+		etq6.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq6);
+		
+		JLabel etq6_1 = new JLabel("    y presiona confirmar.");
+		etq6_1.setSize(500, 30);
+		etq6_1.setLocation(40, 290);
+		etq6_1.setFont(new Font ("Verdana", Font.BOLD, 16));
+		panel5.add(etq6_1);
+		
+		ImageIcon imagen3 = new ImageIcon("ayuda_4.png");
+		JLabel fondoLog = new JLabel();
+		fondoLog.setSize(250,300);
+		fondoLog.setLocation(530, 100);
+		fondoLog.setIcon(new ImageIcon(imagen3.getImage().getScaledInstance(250, 300, Image.SCALE_SMOOTH)));
+		panel5.add(fondoLog);
+		
+		ImageIcon imagen4 = new ImageIcon("ayuda_5.png");
+		JLabel ayuda_2 = new JLabel();
+		ayuda_2.setSize(250,300);
+		ayuda_2.setLocation(800, 100);
+		ayuda_2.setIcon(new ImageIcon(imagen4.getImage().getScaledInstance(250, 300, Image.SCALE_SMOOTH)));
+		panel5.add(ayuda_2);
+		
+		ImageIcon imagen5 = new ImageIcon("ayuda_6.png");
+		JLabel ayuda_3 = new JLabel();
+		ayuda_3.setSize(250,300);
+		ayuda_3.setLocation(1070, 100);
+		ayuda_3.setIcon(new ImageIcon(imagen5.getImage().getScaledInstance(250, 300, Image.SCALE_SMOOTH)));
+		panel5.add(ayuda_3);
+		
+		JButton  confirmar = new JButton ("Ir a recuperación");
+		confirmar.setSize(250, 40);
+		confirmar.setLocation(20, 350);
+		confirmar.setOpaque(true);
+		confirmar.setBackground(Color.decode("#DDA853"));
+		confirmar.setHorizontalAlignment(JButton.CENTER);
+		confirmar.setFont(new Font ("Verdana", Font.BOLD, 20));
+		
+		confirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("recupContra");
+				
+			}
+		});
+
+		panel5.add(confirmar);
+		
+		JButton  irLogin = new JButton ("Ir a acceso");
+		irLogin.setSize(200, 40);
+		irLogin.setLocation(300, 350);
+		irLogin.setOpaque(true);
+		irLogin.setBackground(Color.decode("#DDA853"));
+		irLogin.setHorizontalAlignment(JButton.CENTER);
+		irLogin.setFont(new Font ("Verdana", Font.BOLD, 20));
+		irLogin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				router("acceso");				
+			}
+		});
+		panel5.add(irLogin);
 		
 		return panel5;
 		
