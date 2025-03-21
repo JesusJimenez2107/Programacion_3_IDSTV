@@ -1888,7 +1888,7 @@ public class Ventana extends JFrame{
 		
 		Graphics2D g2d = (Graphics2D) g.create();
 		
-		/* g2d.setStroke(new BasicStroke(3));
+		g2d.setStroke(new BasicStroke(3));
 		
 		g2d.drawRect(50, 100, 100, 100);
 		
@@ -1920,7 +1920,7 @@ public class Ventana extends JFrame{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		//casa
 		
@@ -1995,8 +1995,8 @@ public class Ventana extends JFrame{
 		//mario
 		
 		//fondo
-		/* g2d.setColor(new Color(36, 90, 160));
-	     g2d.fillRect(0, 55, 1000, 600);
+		/*g2d.setColor(new Color(36, 90, 160));
+	    g2d.fillRect(0, 55, 1000, 600);
 	     
 	     //colinas
 	     g2d.setColor(new Color(135, 206, 235));
