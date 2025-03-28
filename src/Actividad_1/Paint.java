@@ -15,10 +15,12 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -41,9 +43,16 @@ public class Paint implements MouseListener, MouseMotionListener{
 	private Point lastPoint; // Para almacenar la última posición del mouse
     // Para almacenar los puntos dibujados
 	private List<Point> points = new ArrayList<>();
-	
 	private List<Trazo> listaDePuntos = new ArrayList<>();
+	private List<Rectangle> figuras = new ArrayList<>();
+	private List<Rectangle> rectangulos = new ArrayList<>();
+	private List<Circle> circulos = new ArrayList<>();
+	private List<Triangle> triangulos = new ArrayList<>();
 
+	
+	//1 = pincel, 2 = cuadrado
+    private int method = 1;
+    
 	/**
 	 * Launch the application.
 	 */
@@ -100,6 +109,13 @@ public class Paint implements MouseListener, MouseMotionListener{
 		btnNewButton.setBackground(Color.decode("#b0c4b1"));
 		btnNewButton.setFont(new Font("Myanmar Text", Font.PLAIN, 17));
 		//btnNewButton.setSize(400,40);	
+		btnNewButton.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent e) {
+ 				
+ 				method = 1;
+ 				
+ 			}
+ 		});
 		panel_2.add(btnNewButton);
 		
 		
@@ -141,6 +157,16 @@ public class Paint implements MouseListener, MouseMotionListener{
 		btnNewButton_3.setBorderPainted(false);
 		btnNewButton_3.setBackground(Color.decode("#b0c4b1"));
 		btnNewButton_3.setFont(new Font("Myanmar Text", Font.PLAIN, 17));
+		btnNewButton_3.addActionListener(new ActionListener() {
+			 
+ 			@Override
+ 			public void actionPerformed(ActionEvent e) {
+ 				// TODO Auto-generated method stub
+ 				
+ 				method = 2;
+ 			}
+ 			
+ 		});
 		panel_4.add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Círculo");
@@ -149,6 +175,12 @@ public class Paint implements MouseListener, MouseMotionListener{
 		btnNewButton_4.setBorderPainted(false);
 		btnNewButton_4.setBackground(Color.decode("#b0c4b1"));
 		btnNewButton_4.setFont(new Font("Myanmar Text", Font.PLAIN, 17));
+		btnNewButton_4.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        method = 3; // Modo círculo
+		    }
+		});
 		panel_4.add(btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Triángulo");
@@ -157,6 +189,12 @@ public class Paint implements MouseListener, MouseMotionListener{
 		btnNewButton_5.setBorderPainted(false);
 		btnNewButton_5.setBackground(Color.decode("#b0c4b1"));
 		btnNewButton_5.setFont(new Font("Myanmar Text", Font.PLAIN, 17));
+		btnNewButton_5.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        method = 4; // Modo triángulo
+		    }
+		});
 		panel_4.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Línea");
@@ -302,6 +340,16 @@ public class Paint implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub 
+		 if (method == 2) { // Rectángulo
+		        rectangulos.add(new Rectangle(e.getX(), e.getY(), 100, 100));
+		    } else if (method == 3) { // Círculo
+		        circulos.add(new Circle(e.getX() - 50, e.getY() - 50, 100));
+		    } else if (method == 4) { // Triángulo
+		        triangulos.add(new Triangle(e.getX(), e.getY(), 100));
+		    }
+ 		
+ 		
+ 		drawingPanel.repaint();
 	}
 
 	@Override
@@ -337,7 +385,8 @@ public class Paint implements MouseListener, MouseMotionListener{
 		// TODO Auto-generated method stub
 		 Point newPoint = e.getPoint(); 
 		 
-		 points.add(newPoint);  
+		 if(method==1)
+ 			 points.add(newPoint);  
 	        
 	     drawingPanel.repaint();
 	        
@@ -375,6 +424,31 @@ public class Paint implements MouseListener, MouseMotionListener{
 	            Point p2 = points.get(i);
 	            g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 	        }
+	        
+	        for (Rectangle rectangle : rectangulos) {
+	        	g2d.drawRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+	        }
+	   
+	        
+	     // Dibujar círculos
+	        for (Circle circle : circulos) {
+	            g2d.drawOval(circle.x, circle.y, circle.diameter, circle.diameter);
+	        }
+
+	        // Dibujar triángulos
+	        for (Triangle triangle : triangulos) {
+	            int x1 = triangle.x;
+	            int y1 = triangle.y;
+	            int x2 = x1 - triangle.size / 2;
+	            int y2 = y1 + triangle.size;
+	            int x3 = x1 + triangle.size / 2;
+	            int y3 = y1 + triangle.size;
+
+	            int[] xPoints = {x1, x2, x3};
+	            int[] yPoints = {y1, y2, y3};
+	            g2d.drawPolygon(xPoints, yPoints, 3);
+	        }
+	        
 	    }
 	}
 
@@ -384,6 +458,39 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 	
 
+	}
+	
+	class Rectangle{
+ 		
+ 		private int x,y,w,h;
+ 		
+ 		public Rectangle(int x, int y,int w, int h)
+ 		{
+ 			this.x = x;
+ 			this.y = y;
+ 			this.w = w;
+ 			this.h = h;
+ 		}
+ 	}
+	
+	class Circle {
+	    int x, y, diameter;
+
+	    public Circle(int x, int y, int diameter) {
+	        this.x = x;
+	        this.y = y;
+	        this.diameter = diameter;
+	    }
+	}
+	
+	class Triangle {
+	    int x, y, size;
+
+	    public Triangle(int x, int y, int size) {
+	        this.x = x;
+	        this.y = y;
+	        this.size = size;
+	    }
 	}
 	
 	class Trazo {
