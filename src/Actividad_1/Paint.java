@@ -123,7 +123,7 @@ public class Paint implements MouseListener, MouseMotionListener{
 		JButton btnNewButton_1 = new JButton("Borrador");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currentColor = Color.WHITE;
+				currentColor = Color.WHITE;//ya lo habia implementado en el commit anterior
 			}
 		});
 		btnNewButton_1.setOpaque(true); 
