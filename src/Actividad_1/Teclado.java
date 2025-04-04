@@ -5,13 +5,20 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -52,6 +59,10 @@ public class Teclado implements KeyListener {
 	private JLabel lblPalabra;
 	private HashMap<Character, JLabel> teclas = new HashMap<>();
 	private JLabel ultimaTeclaPresionada = null;
+	private long startTime;
+	private int nAciertos = 0;
+	JLabel aciertolbl = new JLabel("ACIERTOS: " + nAciertos , SwingConstants.CENTER);
+	private JTextField entradaUsuario;
 	
 	private void initialize() {
 		frame = new JFrame();
@@ -62,12 +73,71 @@ public class Teclado implements KeyListener {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		entradaUsuario = new JTextField();
+		entradaUsuario.setFont(new Font("Tahoma", Font.BOLD, 24));
+		entradaUsuario.setHorizontalAlignment(JTextField.CENTER);
+		entradaUsuario.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        char keyChar = Character.toUpperCase(e.getKeyChar());
+
+		        if (teclas.containsKey(keyChar)) {
+		            if (ultimaTeclaPresionada != null) {
+		                ultimaTeclaPresionada.setBackground(Color.decode("#e5e5e5"));
+		            }
+
+		            JLabel tecla = teclas.get(keyChar);
+		            tecla.setBackground(new Color((int) (Math.random() * 0x1000000)));
+		            ultimaTeclaPresionada = tecla;
+		        }
+		    }
+
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        if (entradaUsuario.getText().isEmpty()) {
+		            startTime = System.currentTimeMillis();
+		        }
+		    }
+
+		    @Override
+		    public void keyReleased(KeyEvent e) {
+		        if (ultimaTeclaPresionada != null) {
+		            // Esto espera 200ms antes de restaurar el color original
+		            Timer timer = new Timer(200, evt -> ultimaTeclaPresionada.setBackground(Color.decode("#e5e5e5")));
+		            timer.setRepeats(false);
+		            timer.start();
+		        }
+		        
+		        String textoIngresado = entradaUsuario.getText().toUpperCase();
+		        String palabraObjetivo = lblPalabra.getText().toUpperCase();
+		        
+		        if (textoIngresado.equals(palabraObjetivo)) {
+		            long tiempoFinal = System.currentTimeMillis();
+		            long segundosTranscurridos = (tiempoFinal - startTime) / 1000;
+
+		            JOptionPane.showMessageDialog(frame, "¡Correcto! Tiempo: " + segundosTranscurridos + " segundos.");
+
+		            entradaUsuario.setText(""); // Limpiar el campo
+		            seleccionarPalabraAleatoria(); // Nueva palabra
+		            nAciertos ++; 
+	            	aciertolbl.setText("ACIERTOS: " + nAciertos);
+		            
+		        }
+		    }
+		});
+		
+		panel.add(entradaUsuario);
+		
 		 lblPalabra = new JLabel("Presiona una tecla...");
 		 lblPalabra.setFont(new Font("Tahoma", Font.BOLD, 24));
 		 lblPalabra.setHorizontalAlignment(JLabel.CENTER);
 		 panel.add(lblPalabra);
 		 seleccionarPalabraAleatoria(); 
-		
+		 
+		 aciertolbl.setFont(new Font("Tahoma", Font.BOLD, 20));
+		 aciertolbl.setForeground(Color.BLUE);
+		 panel.add(aciertolbl);
+		 
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
@@ -326,23 +396,14 @@ public class Teclado implements KeyListener {
 		lblNewLabel_32.setHorizontalAlignment(JLabel.CENTER);
 		panel_2.add(lblNewLabel_32);
 		
-		 frame.addKeyListener(new KeyAdapter() {
-		        public void keyPressed(KeyEvent e) {
-		            char keyChar = Character.toUpperCase(e.getKeyChar());
-
-		            if (teclas.containsKey(keyChar)) {
-		                // Restaurar la última tecla presionada a su color original
-		                if (ultimaTeclaPresionada != null) {
-		                    ultimaTeclaPresionada.setBackground(Color.decode("#e5e5e5"));
-		                }
-
-		                // Iluminar la tecla actual con un color aleatorio
-		                JLabel tecla = teclas.get(keyChar);
-		                tecla.setBackground(new Color((int) (Math.random() * 0x1000000)));
-		                ultimaTeclaPresionada = tecla;
-		            }
-		        }
-		    });
+		entradaUsuario.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				verificarPalabra();
+		    
+			}
+		});
 
 		    frame.setFocusable(true);
 		    frame.requestFocusInWindow();
@@ -373,10 +434,36 @@ public class Teclado implements KeyListener {
 
 	    private String palabraActual;
 
-	    private void seleccionarPalabraAleatoria() {
+	    private String seleccionarPalabraAleatoria() {
 	        Random rand = new Random();
 	        palabraActual = palabras[rand.nextInt(palabras.length)];
 	        lblPalabra.setText(palabraActual);
+			return palabraActual;
+	    }
+	    
+	    private void verificarPalabra() {
+	        String palabraIngresada = entradaUsuario.getText().toUpperCase();
+	        String palabraCorrecta = lblPalabra.getText().toUpperCase();
+
+	        if (palabraIngresada.equals(palabraActual)) {
+	            int opcion = JOptionPane.showConfirmDialog(
+	                frame,
+	                "¡Correcto! ¿Querés otra palabra?",
+	                "Palabra correcta",
+	                JOptionPane.YES_NO_OPTION
+	            );
+
+	            if (opcion == JOptionPane.YES_OPTION) {
+	            	nAciertos ++; 
+	            	aciertolbl.setText("ACIERTOS: " + nAciertos);
+	                palabraActual = seleccionarPalabraAleatoria();
+	                lblPalabra.setText(palabraActual);
+	                entradaUsuario.setText(""); // Limpiar el campo para la nueva palabra
+	            } else {
+	                JOptionPane.showMessageDialog(frame, "¡Gracias por jugar!");
+	                frame.dispose(); // Cierra la ventana del juego
+	            }
+	        }
 	    }
 
 		@Override
