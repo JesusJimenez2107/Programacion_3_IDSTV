@@ -3,11 +3,15 @@ package Actividad_1;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -20,7 +24,10 @@ public class Pacman implements KeyListener {
 
 	private JFrame frame;
 	private DrawingPanel drawingPanel; 
-	private int x=200,y=100;
+	private Player pacman;
+	private List<Player> paredes = new ArrayList<>();
+	Timer timer;
+	private int lastPress = 0;
 
 	/**
 	 * Launch the application.
@@ -53,6 +60,12 @@ public class Pacman implements KeyListener {
 		frame.setBounds(100, 100, 500, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		pacman = new Player(200,200,30,30,Color.decode("#e63946"));
+		
+		paredes.add(new Player (120,300,200,30,Color.decode("#1d3557")));
+		paredes.add(new Player (120,150,200,30,Color.decode("#1d3557")));
+		paredes.add(new Player (380,150,30,200,Color.decode("#1d3557")));
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.decode("#457b9d"));
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
@@ -73,13 +86,25 @@ public class Pacman implements KeyListener {
 		JButton reiniciar = new JButton("Reiniciar");
 		reiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				x=200;
-				y=100;
+				pacman.x=200;
+				pacman.y=200;
+				lastPress=0;
 				drawingPanel.repaint();
 				drawingPanel.requestFocus();
 			}
 		});
 		panel_1.add(reiniciar);
+		
+		ActionListener taskPerformer = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				update();
+			}
+		};
+		
+		timer = new Timer (3,taskPerformer); 
 		
 	}
 
@@ -93,8 +118,13 @@ public class Pacman implements KeyListener {
 	        super.paintComponent(g);
 	        Graphics2D g2d = (Graphics2D) g;
 	        
-	        g2d.setColor(Color.decode("#e63946"));
-	        g2d.fillOval(x, y, 30, 30);
+	        g2d.setColor(pacman.c);
+	        g2d.fillOval(pacman.x, pacman.y, pacman.w, pacman.h);
+	        
+	        for (Player pared : paredes) {
+	        	g2d.setColor(pared.c);
+	        	g2d.fillRect(pared.x, pared.y, pared.w, pared.h);
+	        }
 	        }
 	    }
 
@@ -106,33 +136,96 @@ public class Pacman implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode()==87) {
-			y-=5;
-			if(y<=-15) {
-				y=500;
-			}
-		}
-		if (e.getKeyCode()==83) {
-			y+=5;
-			if(y>=500) {
-				y=-15;
-			}
-		}
-		if (e.getKeyCode()==65) {
-			x-=5;
-			if(x<=-25) {
-				x=470;
-			}
-		}
-		if (e.getKeyCode()==68) {
-			x+=5;
-			if(x>=470) {
-				x=-25;
-			}
-		}
+		lastPress=e.getKeyCode();
+		timer.start();
 		
-		drawingPanel.repaint();
+		update();
+		
+		
 	}
+		public void update () {
+			Boolean colision = false;
+			
+			for(Player pared : paredes){
+				if (pacman.colision(pared)) {
+					colision=true;
+				}
+			}
+			
+			if (lastPress==87) {
+				if(!colision) 
+					pacman.y-=1;
+				else {
+					pacman.y+=2;
+					lastPress=0;
+				}
+		
+				if(pacman.y<=-15) {
+					pacman.y=500;
+				}
+			}
+			if (lastPress==83) {
+				if(!colision) 
+				pacman.y+=1;
+				else {
+					pacman.y-=2;
+					lastPress=0;
+				}
+				
+				if(pacman.y>=500) {
+					pacman.y=-15;
+				}
+			}
+			if (lastPress==65) {
+				if(!colision) 
+				pacman.x-=1;
+				else {
+					pacman.x+=2;
+					lastPress=0;
+				}
+				if(pacman.x<=-25) {
+					pacman.x=470;
+				}
+			}
+			if (lastPress==68) {
+				if(!colision) 
+				pacman.x+=1;
+				else {
+					pacman.x-=2;
+					lastPress=0;
+				}
+				if(pacman.x>=470) {
+					pacman.x=-25;
+				}
+			}
+			drawingPanel.repaint();
+		}
+	
+		class Player {
+			int x,y,w,h;
+			Color c;
+			
+			public Player (int x, int y, int w, int h, Color c) {
+				
+				this.x=x;
+				this.y=y;
+				this.w=w;
+				this.h=h;
+				this.c=c;
+			}
+			public Boolean colision (Player target) {
+				if(this.x < target.x + target.w &&
+						this.x + this.w > target.x &&
+						this.y < target.y + target.h &&
+						this.y + this.h > target.y) {
+					return true;
+				}
+				return false;
+			}
+		}
+	
+	
+
 
 	@Override
 	public void keyReleased(KeyEvent e) {
