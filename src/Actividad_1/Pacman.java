@@ -19,6 +19,8 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Pacman implements KeyListener {
 
@@ -28,6 +30,10 @@ public class Pacman implements KeyListener {
 	private List<Player> paredes = new ArrayList<>();
 	Timer timer;
 	private int lastPress = 0;
+	private Timer chronoTimer;
+	private int secondsElapsed = 0;
+	private JLabel lblNewLabel;
+	private boolean hasStarted = false;
 
 	/**
 	 * Launch the application.
@@ -70,6 +76,19 @@ public class Pacman implements KeyListener {
 		panel.setBackground(Color.decode("#457b9d"));
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
+		lblNewLabel = new JLabel("0:00");
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 22));
+		panel.add(lblNewLabel);
+		
+		chronoTimer = new Timer(1000, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				secondsElapsed++;
+				int minutes = secondsElapsed / 60;
+				int seconds = secondsElapsed % 60;
+				lblNewLabel.setText(String.format("%d:%02d", minutes, seconds));
+			}
+		});
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.decode("#457b9d"));
 		frame.getContentPane().add(panel_1, BorderLayout.SOUTH);
@@ -89,6 +108,10 @@ public class Pacman implements KeyListener {
 				pacman.x=200;
 				pacman.y=200;
 				lastPress=0;
+				secondsElapsed = 0;
+				lblNewLabel.setText("0:00");
+				chronoTimer.stop();
+				hasStarted = false;
 				drawingPanel.repaint();
 				drawingPanel.requestFocus();
 			}
@@ -101,10 +124,11 @@ public class Pacman implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				update();
+				
 			}
 		};
 		
-		timer = new Timer (3,taskPerformer); 
+		timer = new Timer (2,taskPerformer); 
 		
 	}
 
@@ -137,6 +161,11 @@ public class Pacman implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		lastPress=e.getKeyCode();
+		if (!hasStarted) {
+			hasStarted = true;
+			secondsElapsed = 0;
+			chronoTimer.start();
+		}
 		timer.start();
 		
 		update();
