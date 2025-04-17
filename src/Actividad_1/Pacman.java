@@ -34,6 +34,9 @@ public class Pacman implements KeyListener {
 	private int secondsElapsed = 0;
 	private JLabel lblNewLabel;
 	private boolean hasStarted = false;
+	private List<Player> pastillas = new ArrayList<>();
+	private int score = 0;
+	private JLabel scoreLabel;
 
 	/**
 	 * Launch the application.
@@ -66,11 +69,36 @@ public class Pacman implements KeyListener {
 		frame.setBounds(100, 100, 500, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		pacman = new Player(200,200,30,30,Color.decode("#e63946"));
+		pacman = new Player(245,245,20,20,Color.decode("#e63946"));
+
+		int tileSize = 30;
+		int[][] mapa = {
+		    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		    {1,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
+		    {1,0,1,0,1,0,1,1,1,0,1,0,1,0,1},
+		    {1,0,1,0,0,0,0,1,0,0,0,0,1,0,1},
+		    {1,0,1,1,1,0,1,1,1,0,1,1,1,0,1},
+		    {1,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
+		    {1,1,1,0,1,1,1,0,1,1,1,0,1,1,1},
+		    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		    {1,1,1,0,1,1,1,0,1,1,1,0,1,1,1},
+		    {1,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
+		    {1,0,1,1,1,0,1,1,1,0,1,1,1,0,1},
+		    {1,0,1,0,0,0,0,1,0,0,0,0,1,0,1},
+		    {1,0,1,0,1,0,1,1,1,0,1,0,1,0,1},
+		    {1,0,0,0,1,0,0,0,0,0,1,0,0,0,1},
+		    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+		};
 		
-		paredes.add(new Player (120,300,200,30,Color.decode("#1d3557")));
-		paredes.add(new Player (120,150,200,30,Color.decode("#1d3557")));
-		paredes.add(new Player (380,150,30,200,Color.decode("#1d3557")));
+		for (int fila = 0; fila < mapa.length; fila++) {
+		    for (int col = 0; col < mapa[0].length; col++) {
+		        if (mapa[fila][col] == 1) {
+		            paredes.add(new Player(col * tileSize + 30, fila * tileSize + 30, tileSize, tileSize, Color.decode("#1d3557")));
+		        }
+		    }
+		}
+		
+		generarPastillas();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.decode("#457b9d"));
@@ -79,6 +107,10 @@ public class Pacman implements KeyListener {
 		lblNewLabel = new JLabel("0:00");
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 22));
 		panel.add(lblNewLabel);
+		
+		scoreLabel = new JLabel("Puntos: 0");
+		scoreLabel.setFont(new Font("Verdana", Font.BOLD, 22));
+		panel.add(scoreLabel);
 		
 		chronoTimer = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -105,15 +137,7 @@ public class Pacman implements KeyListener {
 		JButton reiniciar = new JButton("Reiniciar");
 		reiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pacman.x=200;
-				pacman.y=200;
-				lastPress=0;
-				secondsElapsed = 0;
-				lblNewLabel.setText("0:00");
-				chronoTimer.stop();
-				hasStarted = false;
-				drawingPanel.repaint();
-				drawingPanel.requestFocus();
+				reiniciarJuego();
 			}
 		});
 		panel_1.add(reiniciar);
@@ -143,12 +167,18 @@ public class Pacman implements KeyListener {
 	        Graphics2D g2d = (Graphics2D) g;
 	        
 	        g2d.setColor(pacman.c);
-	        g2d.fillOval(pacman.x, pacman.y, pacman.w, pacman.h);
+	        g2d.fillArc(pacman.x, pacman.y, pacman.w, pacman.h, 45, 270);
 	        
 	        for (Player pared : paredes) {
 	        	g2d.setColor(pared.c);
 	        	g2d.fillRect(pared.x, pared.y, pared.w, pared.h);
 	        }
+	        
+	        for (Player pastilla : pastillas) {
+	            g2d.setColor(pastilla.c);
+	            g2d.fillOval(pastilla.x, pastilla.y, pastilla.w, pastilla.h);
+	        }
+	        
 	        }
 	    }
 
@@ -171,6 +201,29 @@ public class Pacman implements KeyListener {
 		update();
 		
 		
+	}
+	
+	private void generarPastillas() {
+	    pastillas.clear();
+	    int spacing = 30;
+	    int offsetX = 40;
+	    int offsetY = 40;
+
+	    for (int y = offsetY; y < 460; y += spacing) {
+	        for (int x = offsetX; x < 440; x += spacing) {
+	            Player pastilla = new Player(x, y, 10, 10, Color.ORANGE);
+	            boolean colisiona = false;
+	            for (Player pared : paredes) {
+	                if (pastilla.colision(pared)) {
+	                    colisiona = true;
+	                    break;
+	                }
+	            }
+	            if (!colisiona) {
+	                pastillas.add(pastilla);
+	            }
+	        }
+	    }
 	}
 		public void update () {
 			Boolean colision = false;
@@ -227,7 +280,55 @@ public class Pacman implements KeyListener {
 					pacman.x=-25;
 				}
 			}
+			
+			// Verificar colisión con pastillas
+			List<Player> comidas = new ArrayList<>();
+			for (Player p : pastillas) {
+			    if (pacman.colision(p)) {
+			        comidas.add(p);
+			        score++;
+			    }
+			}
+			pastillas.removeAll(comidas);
+			scoreLabel.setText("Puntos: " + score);
+			
+			if (pastillas.isEmpty()) {
+			    timer.stop();
+			    chronoTimer.stop();
+			    int minutos = secondsElapsed / 60;
+			    int segundos = secondsElapsed % 60;
+
+			    int opcion = javax.swing.JOptionPane.showConfirmDialog(
+			        frame,
+			        "¡Ganaste!\nTiempo: " + minutos + ":" + String.format("%02d", segundos) + "\n¿Quieres jugar de nuevo?",
+			        "Victoria",
+			        javax.swing.JOptionPane.YES_NO_OPTION
+			    );
+
+			    if (opcion == javax.swing.JOptionPane.YES_OPTION) {
+			        reiniciarJuego();
+			    } else {
+			        System.exit(0);
+			    }
+			}
+			
 			drawingPanel.repaint();
+		}
+		
+		private void reiniciarJuego() {
+		    pacman.x = 245;
+		    pacman.y = 245;
+		    lastPress = 0;
+		    secondsElapsed = 0;
+		    lblNewLabel.setText("0:00");
+		    chronoTimer.stop();
+		    hasStarted = false;
+		    pastillas.clear();
+		    generarPastillas();
+		    score = 0;
+		    scoreLabel.setText("Puntos: 0");
+		    drawingPanel.repaint();
+		    drawingPanel.requestFocus();
 		}
 	
 		class Player {
